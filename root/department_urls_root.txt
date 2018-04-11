@@ -1,0 +1,14 @@
+皮肤性病科#https://www.chunyuyisheng.com/pc/qalist/clinicno_4/
+妇科#https://www.chunyuyisheng.com/pc/qalist/clinicno_1/
+儿科#https://www.chunyuyisheng.com/pc/qalist/clinicno_2/
+内科#https://www.chunyuyisheng.com/pc/qalist/clinicno_3/
+男科#https://www.chunyuyisheng.com/pc/qalist/clinicno_8/
+外科#https://www.chunyuyisheng.com/pc/qalist/clinicno_9/
+骨伤科#https://www.chunyuyisheng.com/pc/qalist/clinicno_7/
+精神心理科#https://www.chunyuyisheng.com/pc/qalist/clinicno_17/
+中医科#https://www.chunyuyisheng.com/pc/qalist/clinicno_12/
+口腔颌面科#https://www.chunyuyisheng.com/pc/qalist/clinicno_13/
+眼科#https://www.chunyuyisheng.com/pc/qalist/clinicno_15/
+耳鼻咽喉科#https://www.chunyuyisheng.com/pc/qalist/clinicno_14/
+营养科#https://www.chunyuyisheng.com/pc/qalist/clinicno_6/
+肿瘤及防治科#https://www.chunyuyisheng.com/pc/qalist/clinicno_11/

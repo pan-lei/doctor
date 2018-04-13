@@ -12,6 +12,7 @@
 '''
 
 import os
+import time
 
 from spider_test import url_manager, html_downloder
 from src import parser_root, parser_department, parser_page, parser_problem
@@ -99,7 +100,7 @@ class Spider(object):
         for d in dire:
             # print(d)
             # print(os.path.join("E:/PythonProject/doctor/department/", d))
-            name = d.split('.')[0]  # 获取文件名，用以后面的分科室保存问题url，保存在的文件名还是科室名
+            name = d.split('.')[0]  # 获取文件名，用以后面的分科室保存对话，保存在的文件名还是科室名
             # print(name)
             file = os.path.join("E:/PythonProject/doctor/problem/", d)
             fr = open(file, "r", encoding='utf-8')
@@ -116,11 +117,14 @@ class Spider(object):
                     html_cont = self.downloader.download_problem(url)               # 对新的url下载其网页源代码
                     # print(html_cont)
                     self.parserProblem.parseProblem(name, url, html_cont)     # 利用解析器进行解析
-
+                    time.sleep(3)
                 except:
                     print("爬取失败")
 
             fr.close()
+            time.sleep(3)
+
+
 
 
 if __name__ == '__main__':

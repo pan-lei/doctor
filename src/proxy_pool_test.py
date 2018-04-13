@@ -9,10 +9,10 @@ from bs4 import BeautifulSoup
 import urllib.parse as up
 
 def get_proxy():
-    return requests.get("http://127.0.0.1:5010/get/").content
+    return requests.get("http://localhost:5010/get/").content
 
 def delete_proxy(proxy):
-    requests.get("http://127.0.0.1:5010/delete/?proxy={}".format(proxy))
+    requests.get("http://localhost:5010/delete/?proxy={}".format(proxy))
 
 # your spider code
 
@@ -29,11 +29,15 @@ def getHtml():
         'Cache-Control': 'max-age=0',
         'Connection': 'keep-alive',
     }
+    proxies = {
+        'http': str(proxy).split("'")[1],
+        'https': str(proxy).split("'")[1]
+    }
     while retry_count > 0:
         try:
             # 使用代理访问
             print('使用的代理https://{}'.format(str(proxy).split("'")[1]))
-            response = requests.get('http://www.whatismyip.com.tw/', headers=headers, proxies={"https": "https://{}".format(str(proxy).split("'")[1])})
+            response = requests.get('http://www.whatismyip.com.tw/', headers=headers, proxies=proxies)
             if response.status_code != 200:
                 return None
             # return response.text
@@ -47,6 +51,4 @@ def getHtml():
             print('成功连接' + my_ip)
 
 getHtml()
-
-
 

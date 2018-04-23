@@ -15,7 +15,7 @@ import os
 import time
 
 from spider_test import url_manager, html_downloder
-from src import parser_root, parser_department, parser_page, parser_problem
+from src import parser_root, parser_department, parser_page, parser_problem,db_operation
 
 class Spider(object):
     def __init__(self):
@@ -23,8 +23,9 @@ class Spider(object):
         self.downloader = html_downloder.HtmlDownloader()           # 网页下载器
         self.parserRoot = parser_root.HtmlParser()                  # root网页解析器，获取到科室url的入口url，也就是第一页
         self.parserDepartment = parser_department.HtmlParser()      # department网页解析器,获取到问题url
-        self.parserPage = parser_page.PageParser()                  # department第一页的解析，获取前十页
-        self.parserProblem = parser_problem.ProblemParser()         # 我呢提url的解析
+        self.parserPage = parser_page.PageParser()                  # department第一页的解析，获取前30页
+        self.parserProblem = parser_problem.ProblemParser()         # url的解析
+        self.dbOperation = db_operation.DBOperation()               # problem相关信息保存
 
     # 根据url 获取到每个科室的 入口url
     def craw_root(self, root_url):
@@ -116,7 +117,7 @@ class Spider(object):
                     print("Problem_url = {}".format(url))  # 这里便是每一个问题的url
                     html_cont = self.downloader.download_problem(url)               # 对新的url下载其网页源代码
                     # print(html_cont)
-                    self.parserProblem.parseProblem(name, url, html_cont)     # 利用解析器进行解析
+                    self.parserProblem.parseProblem(name, url, html_cont)           # 利用解析器进行解析
                     time.sleep(3)
                 except:
                     print("爬取失败")
@@ -124,13 +125,20 @@ class Spider(object):
             fr.close()
             time.sleep(3)
 
+    # problem相关信息保存
+    def save_problem(self):
+        self.dbOperation.save_problems()
 
+    def save_dialog(self):
+        self.dbOperation.save_dialog()
 
 
 if __name__ == '__main__':
     root_url = "https://www.chunyuyisheng.com/pc/qalist/"
     spider = Spider()
     # spider.craw_root(root_url)
-    # spider.craw_department_page()         # 获取前 30  页链接
+    # spider.craw_department_page()           # 获取前 30  页链接
     # spider.get_problem_url()                # 获取问题链接
-    spider.get_diglog()                   # 获取对话数据
+    # spider.get_diglog()                     # 获取对话数据
+    # spider.save_problem()                   # problem相关信息保存
+    spider.save_dialog()                    # dialog相关信息保存

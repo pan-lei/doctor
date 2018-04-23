@@ -6,7 +6,7 @@
 
 from mongoengine import *
 
-class Dialog(object):
+class Dialog(Document):
     url = StringField(required=True, max_length=100)
     dialog = StringField(required=True)
 

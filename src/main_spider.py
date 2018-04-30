@@ -15,7 +15,8 @@ import os
 import time
 
 from spider_test import url_manager, html_downloder
-from src import parser_root, parser_department, parser_page, parser_problem,db_operation
+from src import parser_root, parser_department, parser_page, \
+    parser_problem,db_operation,dialog_initial_extraction,set_number
 
 class Spider(object):
     def __init__(self):
@@ -26,6 +27,8 @@ class Spider(object):
         self.parserPage = parser_page.PageParser()                  # department第一页的解析，获取前30页
         self.parserProblem = parser_problem.ProblemParser()         # url的解析
         self.dbOperation = db_operation.DBOperation()               # problem相关信息保存
+        self.dialog_initial_extraction = dialog_initial_extraction.DialogInitial()  # 对话的初步处理，将一些客套话去除
+        self.number = set_number.SetNumber()                    # 设置编号
 
     # 根据url 获取到每个科室的 入口url
     def craw_root(self, root_url):
@@ -129,8 +132,17 @@ class Spider(object):
     def save_problem(self):
         self.dbOperation.save_problems()
 
+    # dialog相关信息保存
     def save_dialog(self):
         self.dbOperation.save_dialog()
+
+    # 初步过滤对话的无效信息
+    def dialog_initial(self):
+        self.dialog_initial_extraction.dialog_initial_extraction()
+
+    # 设置编号
+    def set_number(self):
+        self.number.number_set()
 
 
 if __name__ == '__main__':
@@ -141,4 +153,6 @@ if __name__ == '__main__':
     # spider.get_problem_url()                # 获取问题链接
     # spider.get_diglog()                     # 获取对话数据
     # spider.save_problem()                   # problem相关信息保存
-    spider.save_dialog()                    # dialog相关信息保存
+    # spider.save_dialog()                    # dialog相关信息保存
+    # spider.dialog_initial()                 # 对话的初步处理，将一些客套话去除
+    spider.set_number()                     # 对对话进行编号

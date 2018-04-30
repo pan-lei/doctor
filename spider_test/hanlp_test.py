@@ -31,7 +31,7 @@ print(HanLP.extractSummary(document, 3))
 # 依存句法分析
 print(HanLP.parseDependency("徐先生还具体帮助他确定了把画雄鹰、松鼠和麻雀作为主攻目标。"))
 '''
-file_name = "E:\PythonProject\doctor\\nlp_test\词性测试.txt"
+file_name = "E:\PythonProject\doctor\dialog_test\眼科.txt"
 # print(file_name)
 file_input = open(file_name, 'r', encoding='utf-8')
 
@@ -40,8 +40,12 @@ file_input = iter(file_input)
 document = ''
 for line in file_input:
     if line.startswith('http'):
-        print('------------------------')
-        # continue
+        if len(document) > 0:
+            print(document)
+            document = ''
+            document += line
+        else:
+            document += line
     else:
         if len(line.strip())>0:
             document += str(line[0:4])
@@ -50,13 +54,16 @@ for line in file_input:
             for word in HanLP.segment(line[4:-1]):
             #     # print(word)
             #     # print(type(str(word)))
-                if str(word).split('/')[1] == 'rr' or str(word).split('/')[1] == 'vshi' or str(word).split('/')[1] == 'ule' or str(word).split('/')[1] == 'c' or str(word).split('/')[1] == 'vn' or str(word).split('/')[1] == 'ryv' :
+                if str(word).split('/')[0] == '你好':
                     # print(str(word))
                     continue
-                # else:
+                if str(word).split('/')[0] == '，':
+                    document += ' '
+                    continue
                 document += str(word).split('/')[0]
             #
             document += '\n'
-
-print(document)
+#             print(HanLP.segment(line[4:-1]))
+#
+# print(document)
 
